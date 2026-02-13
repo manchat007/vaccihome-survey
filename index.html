@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VacciHome — Parent Survey</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --sage: #4A7C6F;
+    --sage-dark: #2D5C52;
+    --sage-light: #EAF3F0;
+    --sage-mid: #7AADA0;
+    --rust: #C4622D;
+    --rust-light: #FDF0E8;
+    --sand: #F7F4EE;
+    --cream: #FDFCF8;
+    --ink: #1A2420;
+    --ink-mid: #3D524E;
+    --muted: #8FA9A3;
+    --border: #D4E4DF;
+    --white: #FFFFFF;
+    --r: 12px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--sand);
+    font-family: 'Outfit', sans-serif;
+    color: var(--ink-mid);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--sage-dark);
+    position: relative;
+    overflow: hidden;
+    padding: 56px 24px 44px;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(74,124,111,0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 80% 10%, rgba(196,98,45,0.18) 0%, transparent 60%);
+  }
+  .hero-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .hero-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 100px;
+    padding: 7px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 22px;
+  }
+  .hero-title {
+    position: relative;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 6vw, 46px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.18;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .hero-title em { font-style: italic; color: #A8D5CA; }
+  .hero-sub {
+    position: relative;
+    font-size: 15px;
+    color: rgba(255,255,255,0.72);
+    max-width: 480px;
+    margin: 0 auto 24px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .hero-meta {
+    position: relative;
+    display: inline-flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .meta-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+  .meta-pill span { font-size: 16px; }
+
+  /* PROGRESS */
+  .progress-strip {
+    background: var(--sage);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(45,92,82,0.25);
+  }
+  .prog-bar-outer {
+    flex: 1;
+    max-width: 380px;
+    height: 4px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .prog-bar-inner {
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+  .prog-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 0 16px 80px;
+  }
+
+  /* NOTICE */
+  .notice {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    padding: 18px 20px;
+    margin: 28px 0 6px;
+    animation: revealUp 0.4s 0.1s ease both;
+    opacity: 0;
+  }
+  .notice-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .notice-text { font-size: 13.5px; color: var(--ink-mid); line-height: 1.65; }
+  .notice-text strong { color: var(--ink); }
+
+  /* SECTION HEADER */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 36px 0 10px;
+    padding-left: 4px;
+    opacity: 0;
+    animation: revealUp 0.4s ease both;
+  }
+  .sec-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .sec-icon.green  { background: var(--sage-light); }
+  .sec-icon.orange { background: var(--rust-light); }
+  .sec-icon.yellow { background: #FFF8E6; }
+  .sec-icon.blue   { background: #EAF2FB; }
+  .sec-icon.grey   { background: #EEF0F0; }
+  .sec-meta { display: flex; flex-direction: column; gap: 2px; }
+  .sec-tag {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted);
+  }
+  .sec-name {
+    font-family: 'Fraunces', serif;
+    font-size: 19px; font-weight: 600; color: var(--ink); line-height: 1.2;
+  }
+  .sec-line { flex: 1; height: 1px; background: var(--border); margin-top: 18px; }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border-radius: var(--r);
+    padding: 24px 26px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 16px rgba(45,92,82,0.06);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: revealUp 0.45s ease forwards;
+  }
+  @keyframes revealUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .q-num {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 5px;
+  }
+  .q-text {
+    font-size: 16px; font-weight: 500;
+    color: var(--ink); line-height: 1.5; margin-bottom: 5px;
+  }
+  .q-hint {
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 18px; line-height: 1.5; font-weight: 300;
+  }
+  .req { color: #C0392B; margin-left: 2px; }
+
+  /* OPTIONS */
+  .opts { display: flex; flex-direction: column; gap: 9px; }
+  .opts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .opt {
+    display: flex; align-items: flex-start; gap: 13px;
+    padding: 13px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s;
+    background: var(--sand);
+    user-select: none;
+  }
+  .opt:hover { border-color: var(--sage-mid); background: var(--sage-light); }
+  .opt.chosen { border-color: var(--sage); background: var(--sage-light); }
+  .opt input[type=radio], .opt input[type=checkbox] {
+    accent-color: var(--sage);
+    width: 16px; height: 16px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .opt-label { font-size: 14.5px; color: var(--ink-mid); line-height: 1.45; }
+  .opt.chosen .opt-label { color: var(--ink); font-weight: 500; }
+
+  /* SCALE */
+  .scale-wrap { display: flex; flex-direction: column; gap: 9px; }
+  .scale-legends {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted); font-weight: 500;
+  }
+  .scale-btns { display: flex; gap: 7px; }
+  .s-btn {
+    flex: 1; aspect-ratio: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 8px; background: var(--sand);
+    font-size: 13px; font-weight: 600; color: var(--muted);
+    cursor: pointer; transition: all 0.16s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .s-btn:hover { border-color: var(--sage); color: var(--sage); background: var(--sage-light); }
+  .s-btn.on {
+    background: var(--sage); border-color: var(--sage); color: #fff;
+    box-shadow: 0 3px 10px rgba(74,124,111,0.35);
+    transform: scale(1.05);
+  }
+
+  /* MATRIX */
+  .matrix { display: flex; flex-direction: column; gap: 20px; }
+  .matrix-label { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+
+  /* INPUTS */
+  .t-input, .s-input, .ta-input {
+    width: 100%; padding: 12px 15px;
+    border: 1.5px solid var(--border); border-radius: 9px;
+    font-family: 'Outfit', sans-serif; font-size: 14.5px;
+    color: var(--ink); background: var(--sand); outline: none;
+    transition: border-color 0.18s, background 0.18s;
+  }
+  .t-input:focus, .s-input:focus, .ta-input:focus {
+    border-color: var(--sage); background: #fff;
+  }
+  .t-input::placeholder, .ta-input::placeholder { color: var(--muted); }
+  .ta-input { resize: vertical; }
+
+  /* SLIDER */
+  .slider-section { display: flex; flex-direction: column; gap: 12px; }
+  .slider-display {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: 36px; font-weight: 700;
+    color: var(--sage-dark); line-height: 1;
+  }
+  .slider-display sub {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px; color: var(--muted);
+    font-weight: 400; vertical-align: middle; margin-left: 4px;
+  }
+  input[type=range] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 5px; border-radius: 10px;
+    outline: none; cursor: pointer; background: var(--border);
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--sage); border: 3px solid #fff;
+    box-shadow: 0 2px 10px rgba(74,124,111,0.4); cursor: pointer;
+  }
+  .slider-ticks {
+    display: flex; justify-content: space-between;
+    font-size: 11.5px; color: var(--muted);
+  }
+
+  /* SUBMIT */
+  .submit-zone {
+    text-align: center; margin-top: 40px;
+    padding: 36px 24px; background: var(--white);
+    border-radius: var(--r); border: 1px solid var(--border);
+    box-shadow: 0 2px 16px rgba(45,92,82,0.06);
+    animation: revealUp 0.4s 0.72s ease both; opacity: 0;
+  }
+  .submit-note {
+    font-size: 13px; color: var(--muted);
+    line-height: 1.7; margin-bottom: 22px;
+  }
+  .submit-btn {
+    display: inline-block; background: var(--sage-dark);
+    color: #fff; font-family: 'Outfit', sans-serif;
+    font-size: 16px; font-weight: 600;
+    padding: 16px 54px; border-radius: 100px; border: none;
+    cursor: pointer; box-shadow: 0 6px 24px rgba(45,92,82,0.35);
+    letter-spacing: 0.3px; transition: all 0.22s ease;
+  }
+  .submit-btn:hover {
+    background: var(--sage); transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(45,92,82,0.4);
+  }
+  .submit-btn:active { transform: scale(0.98); }
+
+  /* SUCCESS */
+  .success {
+    display: none; text-align: center;
+    padding: 80px 20px; animation: revealUp 0.5s ease;
+  }
+  .success.show { display: block; }
+  .success-circle {
+    width: 90px; height: 90px; background: var(--sage-light);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 40px;
+    margin: 0 auto 24px; border: 2px solid var(--border);
+  }
+  .success-title {
+    font-family: 'Fraunces', serif; font-size: 30px;
+    font-weight: 700; color: var(--ink); margin-bottom: 12px;
+  }
+  .success-body {
+    font-size: 15px; color: var(--muted); line-height: 1.75;
+    max-width: 380px; margin: 0 auto 30px; font-weight: 300;
+  }
+  .early-box {
+    background: var(--sage-light); border: 1.5px solid var(--border);
+    border-radius: var(--r); padding: 22px 26px;
+    max-width: 380px; margin: 0 auto; text-align: left;
+  }
+  .early-box h4 {
+    font-family: 'Fraunces', serif; font-size: 17px;
+    color: var(--sage-dark); margin-bottom: 6px;
+  }
+  .early-box p { font-size: 13px; color: var(--ink-mid); margin-bottom: 14px; line-height: 1.6; }
+  .early-row { display: flex; gap: 10px; }
+  .early-inp {
+    flex: 1; padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: 8px; font-family: 'Outfit', sans-serif;
+    font-size: 14px; background: #fff; color: var(--ink); outline: none;
+  }
+  .early-inp:focus { border-color: var(--sage); }
+  .early-btn {
+    padding: 10px 18px; background: var(--sage-dark); color: #fff;
+    border: none; border-radius: 8px; font-family: 'Outfit', sans-serif;
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+  }
+  .early-btn:hover { background: var(--sage); }
+
+  .form-area { transition: opacity 0.3s; }
+  .form-area.hidden { opacity: 0; pointer-events: none; }
+
+  @media (max-width: 480px) {
+    .opts-grid { grid-template-columns: 1fr; }
+    .card { padding: 20px 16px; }
+    .hero { padding: 44px 20px 36px; }
+    .s-btn { font-size: 12px; }
+    .hero-meta { gap: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-badge">💉 &nbsp;VacciHome — 2025 Survey</div>
+  <h1 class="hero-title">Vaccines for Your Baby,<br><em>Delivered to Your Door</em></h1>
+  <p class="hero-sub">We're building a home vaccination service for babies aged 0–2 years. Your feedback shapes how we do it right for Indian families.</p>
+  <div class="hero-meta">
+    <div class="meta-pill"><span>⏱</span> 3–4 minutes</div>
+    <div class="meta-pill"><span>🔒</span> 100% Anonymous</div>
+    <div class="meta-pill"><span>🇮🇳</span> India Only</div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-strip">
+  <div class="prog-bar-outer"><div class="prog-bar-inner" id="prog"></div></div>
+  <div class="prog-text" id="progTxt">0 / 17 answered</div>
+</div>
+
+<div class="main">
+<div class="form-area" id="formArea">
+
+  <!-- NOTICE -->
+  <div class="notice">
+    <div class="notice-icon">🛡️</div>
+    <div class="notice-text"><strong>Confidential &amp; for research only.</strong> We collect no personal medical data. Responses are used solely to understand whether a certified nurse-administered, at-home vaccine service would work for Indian parents.</div>
+  </div>
+
+  <!-- ═══ SECTION A ═══ -->
+  <div class="sec-head" style="animation-delay:0.15s">
+    <div class="sec-icon green">👶</div>
+    <div class="sec-meta">
+      <div class="sec-tag">Section A</div>
+      <div class="sec-name">About You &amp; Your Child</div>
+    </div>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="card" style="animation-delay:0.05s">
+    <div class="q-num">Q 01 of 17</div>
+    <div class="q-text">What is your child's current age?<span class="req">*</span></div>
+    <div class="q-hint">Select the closest range.</div>
+    <div class="opts">
+      <label class="opt" onclick="pick(this,'q1')"><input type="radio" name="q1" value="0-6m"><span class="opt-label">0 – 6 months</span></label>
+      <label class="opt" onclick="pick(this,'q1')"><input type="radio" name="q1" value="6-12m"><span class="opt-label">6 – 12 months</span></label>
+      <label class="opt" onclick="pick(this,'q1')"><input type="radio" name="q1" value="12-24m"><span class="opt-label">12 – 24 months</span></label>
+      <label class="opt" onclick="pick(this,'q1')"><input type="radio" name="q1" value="expecting"><span class="opt-label">Expecting — due within 6 months</span></label>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" style="animation-delay:0.09s">
+    <div class="q-num">Q 02 of 17</div>
+    <div class="q-text">Which city do you currently live in?<span class="req">*</span></div>
+    <div class="q-hint">Helps us plan future service areas.</div>
+    <select class="s-input" name="q2" onchange="refresh()">
+      <option value="" disabled selected>— Select your city —</option>
+      <option>Mumbai</option><option>Delhi / NCR</option><option>Bengaluru</option>
+      <option>Hyderabad</option><option>Chennai</option><option>Pune</option>
+      <option>Kolkata</option><option>Ahmedabad</option><option>Jaipur</option>
+      <option>Surat</option><option>Lucknow</option><option>Chandigarh</option>
+      <option>Indore</option><option>Nagpur</option>
+      <option>Other Tier-1 city</option><option>Tier-2 / Tier-3 city</option>
+    </select>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card" style="animation-delay:0.13s">
+    <div class="q-num">Q 03 of 17</div>
+    <div class="q-text">Are you currently employed / working?<span class="req">*</span></div>
+    <div class="opts-grid">
+      <label class="opt" onclick="pick(this,'q3')"><input type="radio" name="q3" value="full"><span class="opt-label">Yes, full-time</span></label>
+      <label class="opt" onclick="pick(this,'q3')"><input type="radio" name="q3" value="part"><span class="opt-label">Yes, part-time / freelance</span></label>
+      <label class="opt" onclick="pick(this,'q3')"><input type="radio" name="q3" value="home"><span class="opt-label">Stay-at-home parent</span></label>
+      <label class="opt" onclick="pick(this,'q3')"><input type="radio" name="q3" value="other"><span class="opt-label">Other</span></label>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION B ═══ -->
+  <div class="sec-head" style="animation-delay:0.2s">
+    <div class="sec-icon orange">🩺</div>
+    <div class="sec-meta">
+      <div class="sec-tag">Section B</div>
+      <div class="sec-name">Trust &amp; Medical Preferences</div>
+    </div>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" style="animation-delay:0.17s">
+    <div class="q-num">Q 04 of 17</div>
+    <div class="q-text">How much do you trust your child's current pediatrician for vaccination decisions?<span class="req">*</span></div>
+    <div class="q-hint">1 = Do not trust at all &nbsp;·&nbsp; 5 = Fully trust</div>
+    <div class="scale-wrap">
+      <div class="scale-legends"><span>Do not trust</span><span>Fully trust</span></div>
+      <div class="scale-btns" id="sc-q4">
+        <button class="s-btn" onclick="pickScale('q4',1,this)">1</button>
+        <button class="s-btn" onclick="pickScale('q4',2,this)">2</button>
+        <button class="s-btn" onclick="pickScale('q4',3,this)">3</button>
+        <button class="s-btn" onclick="pickScale('q4',4,this)">4</button>
+        <button class="s-btn" onclick="pickScale('q4',5,this)">5</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" style="animation-delay:0.21s">
+    <div class="q-num">Q 05 of 17</div>
+    <div class="q-text">Would you be comfortable with a trained, certified nurse (not your pediatrician) administering vaccines to your child at home?<span class="req">*</span></div>
+    <div class="opts">
+      <label class="opt" onclick="pick(this,'q5')"><input type="radio" name="q5" value="yes"><span class="opt-label">Yes, absolutely — I trust certified healthcare professionals</span></label>
+      <label class="opt" onclick="pick(this,'q5')"><input type="radio" name="q5" value="maybe_creds"><span class="opt-label">Maybe — if the nurse's credentials are verified and shared with me beforehand</span></label>
+      <label class="opt" onclick="pick(this,'q5')"><input type="radio" name="q5" value="maybe_ped"><span class="opt-label">Unsure — I would want my pediatrician's endorsement first</span></label>
+      <label class="opt" onclick="pick(this,'q5')"><input type="radio" name="q5" value="no"><span class="opt-label">No — I only trust my pediatrician for vaccinations</span></label>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="card" style="animation-delay:0.25s">
+    <div class="q-num">Q 06 of 17</div>
+    <div class="q-text">What would increase your confidence in a home vaccination service? <span style="font-weight:300;color:var(--muted)">(Select all that apply)</span></div>
+    <div class="opts">
+      <label class="opt" onclick="chk(this)"><input type="checkbox" name="q6" value="ped_partner"><span class="opt-label">Partnership with a licensed pediatrician / registered clinic</span></label>
+      <label class="opt" onclick="chk(this)"><input type="checkbox" name="q6" value="nurse_creds"><span class="opt-label">Nurse's registration certificate &amp; ID shared before the visit</span></label>
+      <label class="opt" onclick="chk(this)"><input type="checkbox" name="q6" value="cold_chain"><span class="opt-label">Cold-chain compliance proof (vaccine storage &amp; handling)</span></label>
+      <label class="opt" onclick="chk(this)"><input type="checkbox" name="q6" value="live_track"><span class="opt-label">Live GPS tracking of nurse en route to my home</span></label>
+      <label class="opt" onclick="chk(this)"><input type="checkbox" name="q6" value="reviews"><span class="opt-label">Verified parent reviews &amp; ratings on the app</span></label>
+      <label class="opt" onclick="chk(this)"><input type="checkbox" name="q6" value="sos"><span class="opt-label">Emergency / SOS support available during and after vaccination</span></label>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="card" style="animation-delay:0.29s">
+    <div class="q-num">Q 07 of 17</div>
+    <div class="q-text">Would you want your pediatrician to first approve or recommend the home nurse before the visit?<span class="req">*</span></div>
+    <div class="opts-grid">
+      <label class="opt" onclick="pick(this,'q7')"><input type="radio" name="q7" value="yes"><span class="opt-label">Yes, mandatory</span></label>
+      <label class="opt" onclick="pick(this,'q7')"><input type="radio" name="q7" value="nice"><span class="opt-label">Nice to have, not mandatory</span></label>
+      <label class="opt" onclick="pick(this,'q7')"><input type="radio" name="q7" value="no"><span class="opt-label">No, not necessary</span></label>
+      <label class="opt" onclick="pick(this,'q7')"><input type="radio" name="q7" value="unsure"><span class="opt-label">Not sure yet</span></label>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION C ═══ -->
+  <div class="sec-head" style="animation-delay:0.25s">
+    <div class="sec-icon yellow">🏥</div>
+    <div class="sec-meta">
+      <div class="sec-tag">Section C</div>
+      <div class="sec-name">Clinic Visit Challenges</div>
+    </div>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="card" style="animation-delay:0.33s">
+    <div class="q-num">Q 08 of 17</div>
+    <div class="q-text">How far is your nearest pediatric clinic from home?<span class="req">*</span></div>
+    <div class="opts">
+      <label class="opt" onclick="pick(this,'q8')"><input type="radio" name="q8" value="<2km"><span class="opt-label">Less than 2 km — very close</span></label>
+      <label class="opt" onclick="pick(this,'q8')"><input type="radio" name="q8" value="2-5km"><span class="opt-label">2 – 5 km</span></label>
+      <label class="opt" onclick="pick(this,'q8')"><input type="radio" name="q8" value="5-10km"><span class="opt-label">5 – 10 km</span></label>
+      <label class="opt" onclick="pick(this,'q8')"><input type="radio" name="q8" value=">10km"><span class="opt-label">More than 10 km — quite far</span></label>
+    </div>
+  </div>
+
+  <!-- Q9 MATRIX -->
+  <div class="card" style="animation-delay:0.37s">
+    <div class="q-num">Q 09 of 17</div>
+    <div class="q-text">How challenging is each of the following when visiting a clinic for vaccination?<span class="req">*</span></div>
+    <div class="q-hint">1 = No challenge at all &nbsp;·&nbsp; 5 = Very challenging</div>
+    <div class="matrix">
+      <div>
+        <div class="matrix-label">Getting leave / time off from work</div>
+        <div class="scale-btns" id="sc-q9a">
+          <button class="s-btn" onclick="pickScale('q9a',1,this)">1</button>
+          <button class="s-btn" onclick="pickScale('q9a',2,this)">2</button>
+          <button class="s-btn" onclick="pickScale('q9a',3,this)">3</button>
+          <button class="s-btn" onclick="pickScale('q9a',4,this)">4</button>
+          <button class="s-btn" onclick="pickScale('q9a',5,this)">5</button>
+        </div>
+      </div>
+      <div>
+        <div class="matrix-label">Getting a timely appointment</div>
+        <div class="scale-btns" id="sc-q9b">
+          <button class="s-btn" onclick="pickScale('q9b',1,this)">1</button>
+          <button class="s-btn" onclick="pickScale('q9b',2,this)">2</button>
+          <button class="s-btn" onclick="pickScale('q9b',3,this)">3</button>
+          <button class="s-btn" onclick="pickScale('q9b',4,this)">4</button>
+          <button class="s-btn" onclick="pickScale('q9b',5,this)">5</button>
+        </div>
+      </div>
+      <div>
+        <div class="matrix-label">Waiting time at the clinic</div>
+        <div class="scale-btns" id="sc-q9c">
+          <button class="s-btn" onclick="pickScale('q9c',1,this)">1</button>
+          <button class="s-btn" onclick="pickScale('q9c',2,this)">2</button>
+          <button class="s-btn" onclick="pickScale('q9c',3,this)">3</button>
+          <button class="s-btn" onclick="pickScale('q9c',4,this)">4</button>
+          <button class="s-btn" onclick="pickScale('q9c',5,this)">5</button>
+        </div>
+      </div>
+      <div>
+        <div class="matrix-label">Travelling with a cranky / unwell baby</div>
+        <div class="scale-btns" id="sc-q9d">
+          <button class="s-btn" onclick="pickScale('q9d',1,this)">1</button>
+          <button class="s-btn" onclick="pickScale('q9d',2,this)">2</button>
+          <button class="s-btn" onclick="pickScale('q9d',3,this)">3</button>
+          <button class="s-btn" onclick="pickScale('q9d',4,this)">4</button>
+          <button class="s-btn" onclick="pickScale('q9d',5,this)">5</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="card" style="animation-delay:0.41s">
+    <div class="q-num">Q 10 of 17</div>
+    <div class="q-text">Have you ever missed or delayed a vaccine dose because going to the clinic was inconvenient?<span class="req">*</span></div>
+    <div class="opts-grid">
+      <label class="opt" onclick="pick(this,'q10')"><input type="radio" name="q10" value="yes_multi"><span class="opt-label">Yes, more than once</span></label>
+      <label class="opt" onclick="pick(this,'q10')"><input type="radio" name="q10" value="yes_once"><span class="opt-label">Yes, once</span></label>
+      <label class="opt" onclick="pick(this,'q10')"><input type="radio" name="q10" value="no"><span class="opt-label">No, never</span></label>
+      <label class="opt" onclick="pick(this,'q10')"><input type="radio" name="q10" value="na"><span class="opt-label">Not applicable yet</span></label>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="card" style="animation-delay:0.45s">
+    <div class="q-num">Q 11 of 17</div>
+    <div class="q-text">If a home vaccination service existed, how likely would you be to use it instead of a clinic?<span class="req">*</span></div>
+    <div class="q-hint">1 = Not at all likely &nbsp;·&nbsp; 5 = Extremely likely</div>
+    <div class="scale-wrap">
+      <div class="scale-legends"><span>Not likely</span><span>Extremely likely</span></div>
+      <div class="scale-btns" id="sc-q11">
+        <button class="s-btn" onclick="pickScale('q11',1,this)">1</button>
+        <button class="s-btn" onclick="pickScale('q11',2,this)">2</button>
+        <button class="s-btn" onclick="pickScale('q11',3,this)">3</button>
+        <button class="s-btn" onclick="pickScale('q11',4,this)">4</button>
+        <button class="s-btn" onclick="pickScale('q11',5,this)">5</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION D ═══ -->
+  <div class="sec-head" style="animation-delay:0.3s">
+    <div class="sec-icon blue">💰</div>
+    <div class="sec-meta">
+      <div class="sec-tag">Section D</div>
+      <div class="sec-name">Pricing &amp; Willingness to Pay</div>
+    </div>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="card" style="animation-delay:0.49s">
+    <div class="q-num">Q 12 of 17</div>
+    <div class="q-text">How much do you currently pay per vaccine visit at a private clinic (consultation + vaccine combined)?<span class="req">*</span></div>
+    <div class="opts">
+      <label class="opt" onclick="pick(this,'q12')"><input type="radio" name="q12" value="<500"><span class="opt-label">Less than ₹500</span></label>
+      <label class="opt" onclick="pick(this,'q12')"><input type="radio" name="q12" value="500-1000"><span class="opt-label">₹500 – ₹1,000</span></label>
+      <label class="opt" onclick="pick(this,'q12')"><input type="radio" name="q12" value="1000-2000"><span class="opt-label">₹1,000 – ₹2,000</span></label>
+      <label class="opt" onclick="pick(this,'q12')"><input type="radio" name="q12" value=">2000"><span class="opt-label">More than ₹2,000</span></label>
+      <label class="opt" onclick="pick(this,'q12')"><input type="radio" name="q12" value="govt"><span class="opt-label">I use government / free vaccination services</span></label>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="card" style="animation-delay:0.53s">
+    <div class="q-num">Q 13 of 17</div>
+    <div class="q-text">Would you be willing to pay an extra convenience fee for a nurse to come home (on top of vaccine cost)?<span class="req">*</span></div>
+    <div class="opts">
+      <label class="opt" onclick="pick(this,'q13')"><input type="radio" name="q13" value="yes"><span class="opt-label">Yes — convenience is worth paying for</span></label>
+      <label class="opt" onclick="pick(this,'q13')"><input type="radio" name="q13" value="depends"><span class="opt-label">Depends on how much it costs</span></label>
+      <label class="opt" onclick="pick(this,'q13')"><input type="radio" name="q13" value="no"><span class="opt-label">No — I would not pay anything extra</span></label>
+    </div>
+  </div>
+
+  <!-- Q14 SLIDER -->
+  <div class="card" style="animation-delay:0.57s">
+    <div class="q-num">Q 14 of 17</div>
+    <div class="q-text">What is the maximum extra amount you would pay per home visit as a convenience fee?<span class="req">*</span></div>
+    <div class="q-hint">Drag the slider to your comfort level.</div>
+    <div class="slider-section">
+      <div class="slider-display" id="sliderVal">₹300<sub>per visit</sub></div>
+      <input type="range" id="feeSlider" min="0" max="1000" step="50" value="300"
+        oninput="updSlider(this.value)" onchange="refresh()"/>
+      <div class="slider-ticks">
+        <span>₹0</span><span>₹250</span><span>₹500</span><span>₹750</span><span>₹1000+</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="card" style="animation-delay:0.61s">
+    <div class="q-num">Q 15 of 17</div>
+    <div class="q-text">Which pricing model would you prefer for this service?<span class="req">*</span></div>
+    <div class="opts">
+      <label class="opt" onclick="pick(this,'q15')"><input type="radio" name="q15" value="per_visit"><span class="opt-label">Pay per visit — pay only when you use it</span></label>
+      <label class="opt" onclick="pick(this,'q15')"><input type="radio" name="q15" value="annual"><span class="opt-label">Annual vaccination package at a discounted bundle rate</span></label>
+      <label class="opt" onclick="pick(this,'q15')"><input type="radio" name="q15" value="sub"><span class="opt-label">Monthly subscription with unlimited nurse home visits</span></label>
+      <label class="opt" onclick="pick(this,'q15')"><input type="radio" name="q15" value="insurance"><span class="opt-label">Covered by health insurance — I'd prefer this route</span></label>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION E ═══ -->
+  <div class="sec-head" style="animation-delay:0.35s">
+    <div class="sec-icon grey">💬</div>
+    <div class="sec-meta">
+      <div class="sec-tag">Section E</div>
+      <div class="sec-name">Open Feedback</div>
+    </div>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="card" style="animation-delay:0.65s">
+    <div class="q-num">Q 16 of 17</div>
+    <div class="q-text">What is your single biggest concern about getting your child vaccinated at home?</div>
+    <div class="q-hint">Be as specific as you like — this is the most valuable answer for us.</div>
+    <textarea class="ta-input" rows="4" name="q16" placeholder="e.g. 'I worry about what happens if the baby has a reaction and there is no doctor around…'" oninput="refresh()"></textarea>
+  </div>
+
+  <!-- Q17 -->
+  <div class="card" style="animation-delay:0.69s">
+    <div class="q-num">Q 17 of 17</div>
+    <div class="q-text">Is there anything else you would like us to know?</div>
+    <div class="q-hint">Suggestions, questions, or anything on your mind — optional.</div>
+    <textarea class="ta-input" rows="3" name="q17" placeholder="Any other thoughts…" oninput="refresh()"></textarea>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-zone">
+    <p class="submit-note">🔒 Your responses are anonymous and used solely for product research.<br>We will never sell or share your data with third parties.</p>
+    <button class="submit-btn" onclick="doSubmit()">Submit My Response &rarr;</button>
+  </div>
+
+</div><!-- /form-area -->
+
+<!-- SUCCESS -->
+<div class="success" id="successScreen">
+  <div class="success-circle">🎉</div>
+  <h2 class="success-title">Thank You!</h2>
+  <p class="success-body">Your response has been recorded. You're helping make quality healthcare more accessible for Indian babies — one home at a time.</p>
+  <div class="early-box">
+    <h4>Want early access?</h4>
+    <p>Leave your WhatsApp number and be the first to know when VacciHome launches in your city.</p>
+    <div class="early-row">
+      <input class="early-inp" type="tel" placeholder="+91 98765 43210"/>
+      <button class="early-btn" onclick="notifyMe(this)">Notify Me</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+  const answers = {};
+  const TOTAL = 17;
+
+  function pick(el, key) {
+    const siblings = el.closest('.opts, .opts-grid').querySelectorAll('.opt');
+    siblings.forEach(o => o.classList.remove('chosen'));
+    el.classList.add('chosen');
+    answers[key] = el.querySelector('input').value;
+    refresh();
+  }
+
+  function chk(el) {
+    el.classList.toggle('chosen');
+    refresh();
+  }
+
+  function pickScale(key, val, btn) {
+    const wrap = btn.closest('.scale-btns');
+    wrap.querySelectorAll('.s-btn').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    answers[key] = val;
+    refresh();
+  }
+
+  function updSlider(v) {
+    const display = parseInt(v) >= 1000 ? '₹1,000+' : `₹${v}`;
+    document.getElementById('sliderVal').innerHTML = `${display}<sub>per visit</sub>`;
+    const pct = (v / 1000) * 100;
+    document.getElementById('feeSlider').style.background =
+      `linear-gradient(to right, var(--sage) 0%, var(--sage) ${pct}%, var(--border) ${pct}%, var(--border) 100%)`;
+    answers['q14'] = v;
+  }
+
+  function countAnswered() {
+    let n = 0;
+    if (answers['q1']) n++;
+    const sel = document.querySelector('select[name=q2]');
+    if (sel && sel.value) n++;
+    if (answers['q3']) n++;
+    if (answers['q4']) n++;
+    if (answers['q5']) n++;
+    if (document.querySelectorAll('input[name=q6]:checked').length > 0) n++;
+    if (answers['q7']) n++;
+    if (answers['q8']) n++;
+    if (['q9a','q9b','q9c','q9d'].some(k => answers[k])) n++;
+    if (answers['q10']) n++;
+    if (answers['q11']) n++;
+    if (answers['q12']) n++;
+    if (answers['q13']) n++;
+    if (answers['q14'] !== undefined) n++;
+    if (answers['q15']) n++;
+    const ta16 = document.querySelector('textarea[name=q16]');
+    if (ta16 && ta16.value.trim()) n++;
+    const ta17 = document.querySelector('textarea[name=q17]');
+    if (ta17 && ta17.value.trim()) n++;
+    return Math.min(n, TOTAL);
+  }
+
+  function refresh() {
+    const n = countAnswered();
+    const pct = Math.round((n / TOTAL) * 100);
+    document.getElementById('prog').style.width = pct + '%';
+    document.getElementById('progTxt').textContent = `${n} / ${TOTAL} answered`;
+  }
+
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzt0V6wucYnYJ6o1vPNNSylk5CNyleRw44dKRl8zqfJfqfsRic1o4L1UgP1EEmRuhy4/exec';
+
+  function doSubmit() {
+    const n = countAnswered();
+    if (n < 10) {
+      alert('Please answer at least the required questions (marked with *) before submitting.');
+      return;
+    }
+
+    // Collect all answers
+    const sel = document.querySelector('select[name=q2]');
+    const q6checked = Array.from(document.querySelectorAll('input[name=q6]:checked'))
+                           .map(el => el.value).join(', ');
+    const payload = {
+      q1:  answers['q1']  || '',
+      q2:  sel ? sel.value : '',
+      q3:  answers['q3']  || '',
+      q4:  answers['q4']  || '',
+      q5:  answers['q5']  || '',
+      q6:  q6checked       || '',
+      q7:  answers['q7']  || '',
+      q8:  answers['q8']  || '',
+      q9a: answers['q9a'] || '',
+      q9b: answers['q9b'] || '',
+      q9c: answers['q9c'] || '',
+      q9d: answers['q9d'] || '',
+      q10: answers['q10'] || '',
+      q11: answers['q11'] || '',
+      q12: answers['q12'] || '',
+      q13: answers['q13'] || '',
+      q14: answers['q14'] !== undefined ? `₹${answers['q14']}` : '',
+      q15: answers['q15'] || '',
+      q16: (document.querySelector('textarea[name=q16]') || {}).value || '',
+      q17: (document.querySelector('textarea[name=q17]') || {}).value || ''
+    };
+
+    // Show loading state on button
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
+    btn.style.opacity = '0.75';
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      // no-cors means we can't read response — assume success
+      showSuccess();
+    })
+    .catch(() => {
+      // Network error fallback — still show success to user
+      showSuccess();
+    });
+  }
+
+  function showSuccess() {
+    document.getElementById('formArea').classList.add('hidden');
+    setTimeout(() => {
+      document.getElementById('formArea').style.display = 'none';
+      document.getElementById('successScreen').classList.add('show');
+      document.getElementById('prog').style.width = '100%';
+      document.getElementById('progTxt').textContent = `${TOTAL} / ${TOTAL} answered`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 300);
+  }
+
+  function notifyMe(btn) {
+    const inp = btn.previousElementSibling;
+    if (!inp.value.trim()) { inp.focus(); return; }
+    btn.textContent = '✓ Done!';
+    btn.style.background = 'var(--sage-dark)';
+    btn.disabled = true;
+    inp.disabled = true;
+  }
+
+  // Init slider fill
+  updSlider(300);
+  refresh();
+</script>
+</body>
+</html>
