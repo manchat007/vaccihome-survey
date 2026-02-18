@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VacciHome — Parent Survey</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --mint: #00B894;
+  --mint-deep: #007A63;
+  --mint-pale: #E6F7F4;
+  --mint-glow: rgba(0,184,148,0.18);
+  --amber: #F7A13A;
+  --rose: #FF6B6B;
+  --cream: #F8FBF9;
+  --white: #FFFFFF;
+  --ink: #1A2420;
+  --ink-mid: #3D5450;
+  --ink-soft: #7A9E9A;
+  --ink-ghost: #C5DEDA;
+  --card: rgba(255,255,255,0.88);
+  --rLg: 24px;
+  --rMd: 16px;
+  --rSm: 12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden}
+
+/* BG */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 0%,rgba(0,184,148,.13) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%,rgba(247,161,58,.09) 0%,transparent 60%),
+    #F8FBF9}
+.dots{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(0,184,148,.09) 1px,transparent 1px);
+  background-size:30px 30px;
+  mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 20%,transparent 100%)}
+
+/* HERO */
+.hero{
+  position:relative;
+  z-index:1;
+  padding:80px 24px 72px;
+  text-align:center;
+  max-width:100%;
+  margin:0;
+  background:#1F4A3A;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 90% 100% at -10% 50%,#2A6B50 0%,transparent 55%),
+    radial-gradient(ellipse 70% 80% at 110% 50%,#163829 0%,transparent 55%),
+    radial-gradient(ellipse 50% 60% at 50% 120%,#0F2D1F 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:24px 24px;
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.22);
+  color:rgba(255,255,255,.80);
+  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:7px 20px;border-radius:40px;margin-bottom:32px;
+  animation:fsd .6s ease both;
+}
+.pill-ico{font-size:13px;opacity:.8}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(34px,5.8vw,58px);
+  font-weight:700;
+  color:#FFFFFF;
+  line-height:1.08;
+  letter-spacing:-2px;
+  margin-bottom:20px;
+  animation:fsd .6s .1s ease both;
+}
+.hero h1 em{
+  font-style:italic;
+  font-weight:300;
+  color:#7ECDB0;
+  display:block;
+}
+.hero p{
+  font-size:15.5px;
+  color:rgba(255,255,255,.62);
+  line-height:1.7;
+  max-width:440px;
+  margin:0 auto 44px;
+  animation:fsd .6s .2s ease both;
+}
+.hero-meta{
+  display:inline-flex;
+  align-items:center;
+  gap:28px;
+  animation:fsd .6s .3s ease both;
+  padding:14px 28px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:50px;
+}
+.hero-meta-item{
+  display:flex;align-items:center;gap:7px;
+  font-size:13px;color:rgba(255,255,255,.72);font-weight:500;
+}
+.hero-meta-item .ico{font-size:15px;opacity:.85}
+/* hero wave bottom */
+.hero-wave{position:relative;z-index:1;line-height:0;margin-top:-1px}
+.hero-wave svg{display:block;width:100%}
+@keyframes fsd{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* PROGRESS */
+.prog-sticky{position:sticky;top:0;z-index:100;padding:0 20px}
+.prog-box{max-width:700px;margin:0 auto;background:rgba(255,255,255,.93);backdrop-filter:blur(20px);border:1px solid rgba(0,184,148,.15);border-radius:0 0 20px 20px;padding:13px 22px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.prog-top{display:flex;align-items:center;gap:14px}
+.prog-segs{display:flex;gap:4px;flex:1}
+.prog-seg{flex:1;height:5px;background:var(--ink-ghost);border-radius:4px;overflow:hidden;transition:background .3s}
+.prog-seg .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--mint),#00D4AA);border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-pct{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--mint-deep);min-width:44px;text-align:right}
+.prog-lbl{font-size:12px;color:var(--ink-soft);margin-top:5px;font-weight:500}
+
+/* WRAP */
+.wrap{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:32px 18px 100px}
+
+/* SECTION HEADER */
+.sec-hd{display:flex;align-items:center;gap:14px;margin:52px 0 18px;animation:fup .5s ease both}
+.sec-ico{width:50px;height:50px;background:var(--white);border:1.5px solid rgba(0,184,148,.2);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:23px;box-shadow:0 4px 18px rgba(0,184,148,.13);flex-shrink:0}
+.sec-n{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--mint);margin-bottom:1px}
+.sec-t{font-family:'Fraunces',serif;font-size:25px;font-weight:700;color:var(--ink);letter-spacing:-.5px}
+.sec-line{height:2px;background:linear-gradient(90deg,var(--mint-pale),transparent);border-radius:2px;margin-bottom:6px}
+
+/* CARD */
+.card{background:var(--card);backdrop-filter:blur(14px);border-radius:var(--rLg);padding:28px;margin-bottom:14px;border:1.5px solid rgba(0,184,148,.10);box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 28px rgba(0,184,148,.07);transition:border-color .25s,box-shadow .25s;animation:fup .45s ease both;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--mint),transparent);opacity:0;transition:opacity .25s}
+.card:focus-within{border-color:rgba(0,184,148,.35);box-shadow:0 0 0 4px var(--mint-glow),0 8px 28px rgba(0,184,148,.10)}
+.card:focus-within::before,.card.answered::before{opacity:1}
+.qn{display:inline-block;font-family:'Fraunces',serif;font-size:12px;font-weight:600;color:var(--mint);letter-spacing:1.2px;margin-bottom:5px}
+.qt{font-size:15.5px;font-weight:500;color:var(--ink);line-height:1.55;margin-bottom:18px}
+.qt .req{color:var(--rose);margin-left:2px}
+.qsub{font-size:12.5px;color:var(--ink-soft);margin-top:-12px;margin-bottom:16px}
+
+/* OPTIONS */
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:var(--rSm);border:1.5px solid var(--ink-ghost);cursor:pointer;transition:all .17s cubic-bezier(.4,0,.2,1);user-select:none;font-size:14px;color:var(--ink-mid);background:rgba(255,255,255,.55);position:relative;overflow:hidden}
+.opt::after{content:'';position:absolute;inset:0;background:var(--mint-pale);opacity:0;transition:opacity .17s}
+.opt:hover{border-color:rgba(0,184,148,.4);color:var(--ink);transform:translateX(3px)}
+.opt:hover::after{opacity:1}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.mark{width:22px;height:22px;border:2px solid var(--ink-ghost);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .17s;z-index:1;background:white}
+.checkbox .mark{border-radius:7px}
+.opt-t{flex:1;line-height:1.4;z-index:1;position:relative}
+.opt:has(input:checked){border-color:var(--mint);background:var(--mint-pale);color:var(--mint-deep);transform:translateX(3px)}
+.opt:has(input:checked)::after{opacity:0}
+.opt:has(input:checked) .mark{background:var(--mint);border-color:var(--mint)}
+.opt:has(input:checked) .mark::after{content:'✓';color:white;font-size:12px;font-weight:700}
+.radio:has(input:checked) .mark::after{content:'';width:8px;height:8px;background:white;border-radius:50%;display:block}
+.opt:has(input:checked) .opt-t{font-weight:500}
+
+/* SCALE */
+.scale-w{display:flex;flex-direction:column;gap:12px}
+.scale-btns{display:flex;gap:8px}
+.sbtn{flex:1;height:54px;border-radius:var(--rSm);border:1.5px solid var(--ink-ghost);background:rgba(255,255,255,.7);font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--ink-soft);cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.sbtn::before{content:'';position:absolute;inset:0;background:var(--mint-pale);opacity:0;transition:opacity .18s}
+.sbtn:hover{border-color:var(--mint);color:var(--mint-deep);transform:translateY(-3px);box-shadow:0 5px 14px rgba(0,184,148,.18)}
+.sbtn:hover::before{opacity:1}
+.sbtn.on{background:linear-gradient(135deg,var(--mint) 0%,var(--mint-deep) 100%);border-color:var(--mint);color:white;transform:translateY(-3px);box-shadow:0 7px 22px rgba(0,184,148,.38)}
+.sbtn.on::before{opacity:0}
+.scale-lbs{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);padding:0 2px;font-weight:500}
+
+/* GRID */
+.grid{display:flex;flex-direction:column;gap:10px}
+.grow{background:rgba(255,255,255,.6);border:1.5px solid var(--ink-ghost);border-radius:var(--rSm);padding:16px;transition:border-color .2s}
+.grow.done{border-color:rgba(0,184,148,.35);background:rgba(230,247,244,.4)}
+.grow-lbl{font-size:13.5px;color:var(--ink);font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.grow-lbl .ck{width:18px;height:18px;background:var(--mint);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:10px;color:white;flex-shrink:0}
+.grow.done .ck{display:flex}
+.gbtns{display:flex;gap:6px}
+.gbtn{flex:1;height:42px;border-radius:10px;border:1.5px solid var(--ink-ghost);background:white;font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--ink-soft);cursor:pointer;transition:all .15s}
+.gbtn:hover{border-color:var(--mint);color:var(--mint-deep)}
+.gbtn.on{background:linear-gradient(135deg,var(--mint),var(--mint-deep));border-color:var(--mint);color:white;box-shadow:0 4px 14px rgba(0,184,148,.32)}
+.gfoot{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-ghost);padding-top:8px;font-weight:500}
+
+/* SLIDER */
+.sl-inner{display:flex;gap:24px;align-items:center}
+.sl-amt{text-align:center;min-width:108px}
+.sl-r{font-family:'Fraunces',serif;font-size:46px;font-weight:700;color:var(--mint-deep);line-height:1}
+.sl-u{font-size:12px;color:var(--ink-soft);margin-top:4px;font-weight:500}
+.sl-right{flex:1}
+input[type=range]{width:100%;appearance:none;height:6px;border-radius:6px;background:var(--ink-ghost);outline:none;margin-bottom:8px}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--mint-deep));cursor:pointer;box-shadow:0 3px 14px rgba(0,184,148,.45);transition:transform .15s}
+input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}
+.sl-marks{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);font-weight:500}
+
+/* TEXTAREA */
+textarea{width:100%;border:1.5px solid var(--ink-ghost);border-radius:var(--rSm);padding:16px;font-family:'Instrument Sans',sans-serif;font-size:14px;color:var(--ink);background:rgba(255,255,255,.7);resize:vertical;min-height:110px;outline:none;transition:border-color .2s,box-shadow .2s;line-height:1.6}
+textarea:focus{border-color:var(--mint);box-shadow:0 0 0 4px var(--mint-glow)}
+textarea::placeholder{color:var(--ink-ghost)}
+
+/* SUBMIT — always visible */
+.submit-z{
+  margin-top:32px;
+  background:#FFFFFF;
+  border-radius:20px;
+  border:1.5px solid rgba(0,184,148,.12);
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+  padding:36px 32px 32px;
+  text-align:center;
+}
+.priv{
+  font-size:13px;
+  color:var(--ink-soft);
+  line-height:1.6;
+  margin-bottom:24px;
+  text-align:center;
+}
+.sbmit{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:#2A5C48;
+  color:white;border:none;
+  padding:20px 60px;
+  border-radius:50px;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:17px;font-weight:700;
+  cursor:pointer;
+  box-shadow:0 6px 28px rgba(31,74,58,.35);
+  transition:transform .18s,box-shadow .18s,background .18s;
+  width:100%;max-width:420px;
+}
+.sbmit:hover{background:#1F4A3A;transform:translateY(-2px);box-shadow:0 12px 36px rgba(31,74,58,.45)}
+.sbmit:active{transform:translateY(0)}
+.arr{font-size:18px;transition:transform .2s}
+.sbmit:hover .arr{transform:translateX(4px)}
+
+/* ERROR — strong red highlight */
+.card.err{
+  border-color:#EF4444 !important;
+  background:rgba(239,68,68,.04) !important;
+  box-shadow:0 0 0 4px rgba(239,68,68,.12), 0 4px 16px rgba(239,68,68,.10) !important;
+  animation:shake .4s cubic-bezier(.36,.07,.19,.97) both;
+}
+.card.err::before{background:linear-gradient(90deg,#EF4444,transparent) !important;opacity:1 !important}
+.card.err .qn{color:#EF4444 !important}
+.card.err .qt .req{color:#EF4444}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  10%,50%,90%{transform:translateX(-8px)}
+  30%,70%{transform:translateX(8px)}
+}
+.emsg{display:none;font-size:12.5px;color:#EF4444;margin-top:12px;font-weight:600;align-items:center;gap:6px;padding:8px 12px;background:rgba(239,68,68,.07);border-radius:8px;border-left:3px solid #EF4444}
+.card.err .emsg{display:flex}
+/* Error counter banner */
+#err-banner{
+  display:none;
+  position:fixed;
+  bottom:24px;left:50%;transform:translateX(-50%);
+  background:#EF4444;color:white;
+  padding:12px 24px;border-radius:50px;
+  font-size:14px;font-weight:600;
+  box-shadow:0 8px 28px rgba(239,68,68,.45);
+  z-index:200;
+  white-space:nowrap;
+  animation:slideUp .3s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* SUCCESS */
+.success{
+  display:none;
+  position:relative;
+  z-index:1;
+  max-width:560px;
+  margin:0 auto;
+  padding:70px 20px 100px;
+  text-align:center;
+  animation:fup .5s ease both;
+}
+.ty-orb{
+  width:110px;height:110px;
+  background:#E8F5F0;
+  border:1px solid rgba(0,184,148,.15);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:50px;
+  margin:0 auto 28px;
+  animation:pop .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.ty-h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(36px,6vw,52px);
+  font-weight:700;
+  color:#1A2420;
+  letter-spacing:-1.5px;
+  margin-bottom:18px;
+  line-height:1;
+}
+.ty-p{
+  font-size:16px;
+  color:#7A9E9A;
+  line-height:1.75;
+  max-width:420px;
+  margin:0 auto 40px;
+}
+
+/* PHONE CARD */
+.phone-card{
+  background:#EBF3F0;
+  border-radius:20px;
+  border:1px solid rgba(0,150,100,.12);
+  padding:28px 28px 28px;
+  text-align:left;
+}
+.pc-heading{
+  font-family:'Fraunces',serif;
+  font-size:22px;font-weight:700;
+  color:#1F4A3A;
+  margin-bottom:8px;
+}
+.pc-sub{
+  font-size:14px;color:#3D5450;
+  line-height:1.6;margin-bottom:20px;
+}
+.pc-row{
+  display:flex;gap:10px;align-items:stretch;
+}
+.pc-input{
+  flex:1;
+  padding:16px 18px;
+  border:1.5px solid rgba(255,255,255,.9);
+  border-radius:12px;
+  background:#fff;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:15px;color:var(--ink);
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.pc-input:focus{border-color:var(--mint);box-shadow:0 0 0 3px var(--mint-glow)}
+.pc-input::placeholder{color:#A0B8B4;font-size:14px}
+.pc-btn{
+  padding:0 24px;
+  background:#2A5C48;
+  color:#fff;
+  border:none;border-radius:12px;
+  font-family:'Instrument Sans',sans-serif;
+  font-size:15px;font-weight:700;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:background .18s,transform .15s;
+  box-shadow:0 4px 16px rgba(31,74,58,.28);
+}
+.pc-btn:hover{background:#1F4A3A;transform:translateY(-1px)}
+.phone-err{
+  display:none;
+  font-size:12px;color:#EF4444;
+  margin-top:8px;font-weight:500;
+}
+.phone-err.show{display:block}
+.phone-success{
+  text-align:center;padding:8px 0;
+}
+.phone-success-ico{font-size:36px;margin-bottom:8px}
+.phone-success-text{
+  font-size:14px;color:#2A5C48;
+  line-height:1.6;font-weight:500;
+}
+
+@media(max-width:560px){
+  .hero h1{font-size:30px;letter-spacing:-1px}
+  .hero-meta{flex-direction:column;gap:12px;border-radius:20px;padding:16px 20px}
+  .sl-inner{flex-direction:column;gap:14px}
+  .sl-amt{min-width:auto}
+  .sbtn{height:46px;font-size:17px}
+  .ty-hero{padding:36px 20px 28px}
+  .phone-card-top,.phone-form{padding-left:20px;padding-right:20px}
+}
+</style>
+</head>
+<body>
+
+<div id="err-banner">⚠ Please answer all required questions</div>
+
+<div class="bg"></div>
+<div class="dots"></div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="pill"><span class="pill-ico">✦</span> VacciHome — Parent Survey</div>
+    <h1>Vaccines for Your Baby,<em>Delivered to Your Door</em></h1>
+    <p>We're building a home vaccination service for babies aged 0–2 years.<br>Your feedback shapes how we do it right for Indian families.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="ico">⏱</span> 3–4 minutes</div>
+      <div class="hero-meta-item"><span class="ico">🔒</span> 100% Anonymous</div>
+      <div class="hero-meta-item"><span class="ico">🇮🇳</span> India Only</div>
+    </div>
+  </div>
+</div>
+<div class="hero-wave">
+  <svg viewBox="0 0 1440 54" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:54px">
+    <path d="M0,32 C240,54 480,10 720,32 C960,54 1200,10 1440,32 L1440,54 L0,54 Z" fill="#F8FBF9"/>
+  </svg>
+</div>
+
+<div class="prog-sticky">
+  <div class="prog-box">
+    <div class="prog-top">
+      <div class="prog-segs">
+        <div class="prog-seg" id="s1"><div class="fill"></div></div>
+        <div class="prog-seg" id="s2"><div class="fill"></div></div>
+        <div class="prog-seg" id="s3"><div class="fill"></div></div>
+        <div class="prog-seg" id="s4"><div class="fill"></div></div>
+        <div class="prog-seg" id="s5"><div class="fill"></div></div>
+        <div class="prog-seg" id="s6"><div class="fill"></div></div>
+      </div>
+      <div class="prog-pct" id="pp">0%</div>
+    </div>
+    <div class="prog-lbl" id="pl">Section A · About You & Your Child</div>
+  </div>
+</div>
+
+<div class="wrap">
+<form id="f" novalidate>
+
+<!-- SECTION A -->
+<div class="sec-hd">
+  <div class="sec-ico">👶</div>
+  <div><div class="sec-n">Section A · 4 Questions</div><div class="sec-t">About You & Your Child</div></div>
+</div>
+<div class="sec-line"></div>
+
+<div class="card" id="cq1">
+  <div class="qn">Q 01</div>
+  <div class="qt">How many children do you have?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q1" value="1"><div class="mark"></div><div class="opt-t">1 child</div></label>
+    <label class="opt radio"><input type="radio" name="q1" value="more"><div class="mark"></div><div class="opt-t">More than 1</div></label>
+  </div>
+  <div class="emsg">⚠ Please select an option to continue.</div>
+</div>
+
+<div class="card" id="cq2">
+  <div class="qn">Q 02</div>
+  <div class="qt">Which city do you currently live in?<span class="req">*</span></div>
+  <div class="select-wrap">
+    <select name="q2" id="q2-select" class="city-select">
+      <option value="" disabled selected>Select your city…</option>
+      <optgroup label="Metro Cities">
+        <option value="mumbai">Mumbai</option>
+        <option value="delhi">Delhi NCR</option>
+        <option value="bengaluru">Bengaluru</option>
+        <option value="hyderabad">Hyderabad</option>
+        <option value="chennai">Chennai</option>
+        <option value="kolkata">Kolkata</option>
+      </optgroup>
+      <optgroup label="Tier-1 Cities">
+        <option value="pune">Pune</option>
+        <option value="ahmedabad">Ahmedabad</option>
+        <option value="jaipur">Jaipur</option>
+        <option value="surat">Surat</option>
+        <option value="lucknow">Lucknow</option>
+        <option value="chandigarh">Chandigarh</option>
+        <option value="indore">Indore</option>
+        <option value="nagpur">Nagpur</option>
+      </optgroup>
+      <optgroup label="Other">
+        <option value="other-t1">Other Tier-1 city</option>
+        <option value="tier23">Tier-2 or Tier-3 city</option>
+      </optgroup>
+    </select>
+    <div class="select-arrow">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+  <div class="emsg">⚠ Please select your city.</div>
+</div>
+
+<div class="card" id="cq3">
+  <div class="qn">Q 03</div>
+  <div class="qt">Whats you're relationship with the child?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q3" value="mother"><div class="mark"></div><div class="opt-t">Mother</div></label>
+    <label class="opt radio"><input type="radio" name="q3" value="father"><div class="mark"></div><div class="opt-t">Father</div></label>
+    <label class="opt radio"><input type="radio" name="q3" value="guardian"><div class="mark"></div><div class="opt-t">Guardian / Other caregiver</div></label>
+ 
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<div class="card" id="cq4">
+  <div class="qn">Q 04</div>
+  <div class="qt">What is your youngest child's current age?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q4" value="0-6m"><div class="mark"></div><div class="opt-t">0 – 6 months</div></label>
+    <label class="opt radio"><input type="radio" name="q4" value="6-12m"><div class="mark"></div><div class="opt-t">6 – 12 months</div></label>
+    <label class="opt radio"><input type="radio" name="q4" value="12-24m"><div class="mark"></div><div class="opt-t">12 – 24 months</div></label>
+    <label class="opt radio"><input type="radio" name="q4" value="24-36m"><div class="mark"></div><div class="opt-t">24 – 36 months</div></label>
+    <label class="opt radio"><input type="radio" name="q4" value="36m+"><div class="mark"></div><div class="opt-t">36 months and above</div></label>
+    <label class="opt radio"><input type="radio" name="q4" value="expecting"><div class="mark"></div><div class="opt-t">Expecting — due within 6 months</div></label>
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<!-- SECTION B -->
+<div class="sec-hd">
+  <div class="sec-ico">🩺</div>
+  <div><div class="sec-n">Section B · 4 Questions</div><div class="sec-t">Trust & Medical Preferences</div></div>
+</div>
+<div class="sec-line"></div>
+
+<div class="card" id="cq5">
+  <div class="qn">Q 05</div>
+  <div class="qt">How likely are you to recommend your current pediatrician to fellow parents for infant vaccination?<span class="req">*</span></div>
+  <div class="scale-w">
+    <div class="scale-btns" id="sq5"></div>
+    <div class="scale-lbs"><span>Would not recommend</span><span>Would absolutely recommend</span></div>
+  </div>
+  <div class="emsg">⚠ Please select a rating.</div>
+</div>
+
+<div class="card" id="cq6">
+  <div class="qn">Q 06</div>
+  <div class="qt">How did you choose your regular paediatrician?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q6" value="wom"><div class="mark"></div><div class="opt-t">Word of mouth or referral</div></label>
+    <label class="opt radio"><input type="radio" name="q6" value="search"><div class="mark"></div><div class="opt-t">Through your own search</div></label>
+    <label class="opt radio"><input type="radio" name="q6" value="gynae"><div class="mark"></div><div class="opt-t">Recommended by gynaecologist</div></label>
+    <label class="opt radio"><input type="radio" name="q6" value="hospital"><div class="mark"></div><div class="opt-t">The hospital, where child was born</div></label>
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<div class="card" id="cq7">
+  <div class="qn">Q 07</div>
+  <div class="qt">If your regular paediatrician is not available for vaccination, what would you most likely do?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q7" value="wait"><div class="mark"></div><div class="opt-t">Wait until my regular paediatrician is available — I only trust them</div></label>
+    <label class="opt radio"><input type="radio" name="q7" value="same-clinic"><div class="mark"></div><div class="opt-t">Get it done by another doctor in the same clinic — I trust the institution</div></label>
+    <label class="opt radio"><input type="radio" name="q7" value="diff-clinic"><div class="mark"></div><div class="opt-t">Go to a different clinic or hospital I am familiar with</div></label>
+    <label class="opt radio"><input type="radio" name="q7" value="home-svc"><div class="mark"></div><div class="opt-t">Use a home vaccination service if one were available</div></label>
+    
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<div class="card" id="cq8">
+  <div class="qn">Q 08</div>
+  <div class="qt">Compared to adult vaccination, how complicated do you think administering a vaccine to an infant is?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q8" value="much-more"><div class="mark"></div><div class="opt-t">Much more complicated — infants need specialist-level care</div></label>
+    <label class="opt radio"><input type="radio" name="q8" value="somewhat"><div class="mark"></div><div class="opt-t">Somewhat more complicated — requires extra caution but manageable by a trained nurse</div></label>
+    <label class="opt radio"><input type="radio" name="q8" value="same"><div class="mark"></div><div class="opt-t">About the same — a trained professional can handle both equally well</div></label>
+   <label class="opt radio"><input type="radio" name="q8" value="same"><div class="mark"></div><div class="opt-t">Less complicated, vaccinating kids is easier</div></label>
+   
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<!-- SECTION C -->
+<div class="sec-hd">
+  <div class="sec-ico">🏥</div>
+  <div><div class="sec-n">Section C · 4 Questions</div><div class="sec-t">Clinic Visit Challenges</div></div>
+</div>
+<div class="sec-line"></div>
+
+<div class="card" id="cq9">
+  <div class="qn">Q 09</div>
+  <div class="qt">How far is your nearest pediatric clinic from home?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q9" value="lt2km"><div class="mark"></div><div class="opt-t">Less than 2 km — very close</div></label>
+    <label class="opt radio"><input type="radio" name="q9" value="2-5km"><div class="mark"></div><div class="opt-t">2 – 5 km</div></label>
+    <label class="opt radio"><input type="radio" name="q9" value="5-10km"><div class="mark"></div><div class="opt-t">5 – 10 km</div></label>
+    <label class="opt radio"><input type="radio" name="q9" value="gt10km"><div class="mark"></div><div class="opt-t">More than 10 km — quite far</div></label>
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<div class="card" id="cq10">
+  <div class="qn">Q 10</div>
+  <div class="qt">Have you ever missed or delayed a vaccine dose because going to the clinic was inconvenient?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q10" value="yes-more"><div class="mark"></div><div class="opt-t">Yes, more than once</div></label>
+    <label class="opt radio"><input type="radio" name="q10" value="yes-once"><div class="mark"></div><div class="opt-t">Yes, once</div></label>
+    <label class="opt radio"><input type="radio" name="q10" value="no"><div class="mark"></div><div class="opt-t">No, never</div></label>
+    <label class="opt radio"><input type="radio" name="q10" value="na"><div class="mark"></div><div class="opt-t">Not applicable yet</div></label>
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<div class="card" id="cq11">
+  <div class="qn">Q 11</div>
+  <div class="qt">If a home vaccination service existed, how likely would you be to use it instead of a clinic?<span class="req">*</span></div>
+  <div class="scale-w">
+    <div class="scale-btns" id="sq11"></div>
+    <div class="scale-lbs"><span>Not likely at all</span><span>Extremely likely</span></div>
+  </div>
+  <div class="emsg">⚠ Please select a rating.</div>
+</div>
+
+<div class="card" id="cq12">
+  <div class="qn">Q 12</div>
+  <div class="qt">How challenging is each of the following when visiting a clinic for vaccination?<span class="req">*</span></div>
+  <div class="qsub">1 = No challenge at all · 5 = Very challenging</div>
+  <div class="grid">
+    <div class="grow" id="gr12a">
+      <div class="grow-lbl"><span class="ck">✓</span>Getting leave / time off from work</div>
+      <div class="gbtns" id="g12a"></div>
+      <div class="gfoot"><span>No challenge</span><span>Very challenging</span></div>
+    </div>
+    <div class="grow" id="gr12b">
+      <div class="grow-lbl"><span class="ck">✓</span>Getting a timely appointment</div>
+      <div class="gbtns" id="g12b"></div>
+      <div class="gfoot"><span>No challenge</span><span>Very challenging</span></div>
+    </div>
+    <div class="grow" id="gr12c">
+      <div class="grow-lbl"><span class="ck">✓</span>Waiting time at the clinic</div>
+      <div class="gbtns" id="g12c"></div>
+      <div class="gfoot"><span>No challenge</span><span>Very challenging</span></div>
+    </div>
+    <div class="grow" id="gr12d">
+      <div class="grow-lbl"><span class="ck">✓</span>Travelling with a cranky / unwell baby</div>
+      <div class="gbtns" id="g12d"></div>
+      <div class="gfoot"><span>No challenge</span><span>Very challenging</span></div>
+    </div>
+  </div>
+  <div class="emsg">⚠ Please rate all four items.</div>
+</div>
+
+<!-- SECTION D -->
+<div class="sec-hd">
+  <div class="sec-ico">🛡️</div>
+  <div><div class="sec-n">Section D · 1 Question</div><div class="sec-t">Home Service & Trust Factors</div></div>
+</div>
+<div class="sec-line"></div>
+
+<div class="card" id="cq13">
+  <div class="qn">Q 13</div>
+  <div class="qt">What would increase your confidence in a home vaccination service?<span class="req">*</span></div>
+  <div class="qsub">Select all that apply</div>
+  <div class="opts">
+    <label class="opt checkbox"><input type="checkbox" name="q13" value="ped"><div class="mark"></div><div class="opt-t">Partnership with a licensed pediatrician / registered clinic</div></label>
+    <label class="opt checkbox"><input type="checkbox" name="q13" value="nurse-cert"><div class="mark"></div><div class="opt-t">Nurse's registration certificate & ID shared before the visit</div></label>
+    <label class="opt checkbox"><input type="checkbox" name="q13" value="cold-chain"><div class="mark"></div><div class="opt-t">Cold-chain compliance proof (vaccine storage & handling)</div></label>
+    <label class="opt checkbox"><input type="checkbox" name="q13" value="gps"><div class="mark"></div><div class="opt-t">Live GPS tracking of nurse en route to my home</div></label>
+    <label class="opt checkbox"><input type="checkbox" name="q13" value="reviews"><div class="mark"></div><div class="opt-t">Verified parent reviews & ratings on the app</div></label>
+    <label class="opt checkbox"><input type="checkbox" name="q13" value="doc-call"><div class="mark"></div><div class="opt-t">Doctor on call / emergency medical assistance available after vaccination</div></label>
+  </div>
+  <div class="emsg">⚠ Please select at least one option.</div>
+</div>
+
+<!-- SECTION E -->
+<div class="sec-hd">
+  <div class="sec-ico">💳</div>
+  <div><div class="sec-n">Section E · 4 Questions</div><div class="sec-t">Pricing & Willingness to Pay</div></div>
+</div>
+<div class="sec-line"></div>
+
+<div class="card" id="cq14">
+  <div class="qn">Q 14</div>
+  <div class="qt">How much do you currently pay per vaccine visit at a private clinic?<span class="req">*</span></div>
+  <div class="qsub">Consultation + vaccine cost combined</div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q14" value="free"><div class="mark"></div><div class="opt-t">Government hospital — vaccination is free</div></label>
+    <label class="opt radio"><input type="radio" name="q14" value="1-2k"><div class="mark"></div><div class="opt-t">₹1,000 – ₹2,000</div></label>
+    <label class="opt radio"><input type="radio" name="q14" value="2-3k"><div class="mark"></div><div class="opt-t">₹2,000 – ₹3,000</div></label>
+    <label class="opt radio"><input type="radio" name="q14" value="3-4k"><div class="mark"></div><div class="opt-t">₹3,000 – ₹4,000</div></label>
+    <label class="opt radio"><input type="radio" name="q14" value="4k+"><div class="mark"></div><div class="opt-t">₹4,000 and above</div></label>
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<div class="card" id="cq15">
+  <div class="qn">Q 15</div>
+  <div class="qt">Would you be willing to pay an extra convenience fee for a nurse to come home?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q15" value="yes"><div class="mark"></div><div class="opt-t">Yes — convenience is worth paying for</div></label>
+    <label class="opt radio"><input type="radio" name="q15" value="depends"><div class="mark"></div><div class="opt-t">Depends on how much it costs</div></label>
+    <label class="opt radio"><input type="radio" name="q15" value="no"><div class="mark"></div><div class="opt-t">No — I would not pay anything extra</div></label>
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<div class="card" id="cq16">
+  <div class="qn">Q 16</div>
+  <div class="qt">What is the maximum extra amount you would pay per home visit as a convenience fee?<span class="req">*</span></div>
+  <div class="sl-inner">
+    <div class="sl-amt">
+      <div class="sl-r" id="sd">₹300</div>
+      <div class="sl-u">per visit</div>
+    </div>
+    <div class="sl-right">
+      <input type="range" id="sl16" min="0" max="1000" step="50" value="300">
+      <div class="sl-marks"><span>₹0</span><span>₹250</span><span>₹500</span><span>₹750</span><span>₹1k+</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="card" id="cq17">
+  <div class="qn">Q 17</div>
+  <div class="qt">Which pricing model would you prefer for this service?<span class="req">*</span></div>
+  <div class="opts">
+    <label class="opt radio"><input type="radio" name="q17" value="per-visit"><div class="mark"></div><div class="opt-t">Pay per visit — pay only when you use it</div></label>
+    <label class="opt radio"><input type="radio" name="q17" value="annual"><div class="mark"></div><div class="opt-t">Annual vaccination package at a discounted bundle rate</div></label>
+  </div>
+  <div class="emsg">⚠ Please select an option.</div>
+</div>
+
+<!-- SECTION F -->
+<div class="sec-hd">
+  <div class="sec-ico">✍️</div>
+  <div><div class="sec-n">Section F · Optional</div><div class="sec-t">Open Feedback</div></div>
+</div>
+<div class="sec-line"></div>
+
+<div class="card">
+  <div class="qn">Q 18 <span style="font-size:10px;color:var(--ink-ghost);font-weight:400;letter-spacing:0">Optional</span></div>
+  <div class="qt">What is your single biggest concern about getting your child vaccinated at home?</div>
+  <textarea name="q18" placeholder="Share your biggest concern or hesitation..."></textarea>
+</div>
+
+<div class="card">
+  <div class="qn">Q 19 <span style="font-size:10px;color:var(--ink-ghost);font-weight:400;letter-spacing:0">Optional</span></div>
+  <div class="qt">Is there anything else you would like us to know?</div>
+  <textarea name="q19" placeholder="Any thoughts, suggestions, or questions for the VacciHome team..."></textarea>
+</div>
+
+<!-- SUBMIT -->
+<div class="submit-z">
+  <p class="priv">🔒 Your responses are anonymous and used solely for product research.<br>We will never sell or share your data with third parties.</p>
+  <button type="submit" class="sbmit">Submit My Response <span class="arr">→</span></button>
+</div>
+
+</form>
+
+<div class="success" id="ss">
+  <div class="ty-orb">🎉</div>
+  <h2 class="ty-h2">Thank You!</h2>
+  <p class="ty-p">Your response has been recorded. You're helping make quality healthcare more accessible for Indian babies — one home at a time.</p>
+
+  <div class="phone-card">
+    <h3 class="pc-heading">Want early access?</h3>
+    <p class="pc-sub">Leave your WhatsApp number and be the first to know when VacciHome launches in your city.</p>
+
+    <div class="phone-form" id="phone-form">
+      <div class="pc-row">
+        <input type="tel" id="phone-input" placeholder="+91 98765 43210" maxlength="10" inputmode="numeric" class="pc-input">
+        <button class="pc-btn" id="phone-btn" type="button">Notify Me</button>
+      </div>
+      <div class="phone-err" id="phone-err">Please enter a valid 10-digit Indian mobile number.</div>
+    </div>
+
+    <div class="phone-success" id="phone-success" style="display:none">
+      <div class="phone-success-ico">📱</div>
+      <div class="phone-success-text">You're on the list! We'll WhatsApp you the moment VacciHome launches in your city.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- Hidden iframe for form submission fallback -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+/*
+╔══════════════════════════════════════════════════════════════════╗
+║  GOOGLE APPS SCRIPT — COPY THIS INTO YOUR APPS SCRIPT EDITOR   ║
+║                                                                  ║
+║  1. Go to https://script.google.com                              ║
+║  2. Create a new project                                         ║
+║  3. Replace Code.gs with the code below                          ║
+║  4. Deploy → New deployment → Web app                            ║
+║     - Execute as: Me                                             ║
+║     - Who has access: Anyone                                     ║
+║  5. Copy the Web App URL and paste it below as APPS_SCRIPT_URL   ║
+║  6. IMPORTANT: Every time you edit the script, you must do a     ║
+║     NEW deployment (not just save) to get changes to take effect ║
+║                                                                  ║
+║  ────────────── Apps Script Code (Code.gs) ──────────────────    ║
+║                                                                  ║
+║  function doGet(e) {                                             ║
+║    return handleRequest(e);                                      ║
+║  }                                                               ║
+║                                                                  ║
+║  function doPost(e) {                                            ║
+║    return handleRequest(e);                                      ║
+║  }                                                               ║
+║                                                                  ║
+║  function handleRequest(e) {                                     ║
+║    var sheet = SpreadsheetApp.getActiveSpreadsheet()              ║
+║                  .getActiveSheet();                               ║
+║    var params = e.parameter;                                     ║
+║                                                                  ║
+║    // Phone signup — separate handling                            ║
+║    if (params.type === 'phone_signup') {                          ║
+║      sheet.appendRow([                                           ║
+║        params.phone_timestamp || new Date().toISOString(),       ║
+║        'PHONE_SIGNUP',                                           ║
+║        '', '', '', '', '', '', '', '', '', '',                    ║
+║        '', '', '', '', '', '', '', '', '',                        ║
+║        params.phone || ''                                        ║
+║      ]);                                                         ║
+║      return ContentService.createTextOutput(                     ║
+║        JSON.stringify({status:'ok',type:'phone'})                ║
+║      ).setMimeType(ContentService.MimeType.JSON);                ║
+║    }                                                             ║
+║                                                                  ║
+║    // Survey response                                            ║
+║    sheet.appendRow([                                             ║
+║      params.timestamp  || new Date().toISOString(),              ║
+║      params.q1  || '',                                           ║
+║      params.q2  || '',                                           ║
+║      params.q3  || '',                                           ║
+║      params.q4  || '',                                           ║
+║      params.q5  || '',                                           ║
+║      params.q6  || '',                                           ║
+║      params.q7  || '',                                           ║
+║      params.q8  || '',                                           ║
+║      params.q9  || '',                                           ║
+║      params.q10 || '',                                           ║
+║      params.q11 || '',                                           ║
+║      params.q12a || '',                                          ║
+║      params.q12b || '',                                          ║
+║      params.q12c || '',                                          ║
+║      params.q12d || '',                                          ║
+║      params.q13 || '',                                           ║
+║      params.q14 || '',                                           ║
+║      params.q15 || '',                                           ║
+║      params.q16 || '',                                           ║
+║      params.q17 || '',                                           ║
+║      params.q18 || '',                                           ║
+║      params.q19 || ''                                            ║
+║    ]);                                                           ║
+║                                                                  ║
+║    return ContentService.createTextOutput(                       ║
+║      JSON.stringify({status:'ok'})                               ║
+║    ).setMimeType(ContentService.MimeType.JSON);                  ║
+║  }                                                               ║
+║                                                                  ║
+║  ─────────── ALSO ADD HEADER ROW TO YOUR SHEET ──────────────    ║
+║  Row 1 should have these column headers:                         ║
+║  Timestamp | Q1 | Q2 | Q3 | Q4 | Q5 | Q6 | Q7 | Q8 | Q9 |     ║
+║  Q10 | Q11 | Q12a | Q12b | Q12c | Q12d | Q13 | Q14 | Q15 |     ║
+║  Q16 | Q17 | Q18 | Q19                                          ║
+╚══════════════════════════════════════════════════════════════════╝
+*/
+
+// ══════════════════════════════════════════════════════════════
+// 🔧 YOUR APPS SCRIPT URL — Replace this after deploying
+// ══════════════════════════════════════════════════════════════
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzR7HGaYpeFetZSUSe3aJbzz9iIUki8iISXCtooKs1Idwysrg7czbkvXLFIytq5DLj3UQ/exec';
+
+// ── HELPERS ──────────────────────────────────────────────
+function gridDone(){
+  return ['g12a','g12b','g12c','g12d'].every(function(id){
+    return !!document.getElementById(id).querySelector('.on');
+  });
+}
+
+function isAns(n){
+  if(n==='q2') return !!document.getElementById('q2-select').value;
+  if(n==='q5') return !!document.getElementById('sq5').querySelector('.on');
+  if(n==='q11') return !!document.getElementById('sq11').querySelector('.on');
+  if(n==='q12') return gridDone();
+  if(n==='q13') return !!document.querySelector('input[name="q13"]:checked');
+  return !!document.querySelector('input[name="'+n+'"]:checked');
+}
+
+var SECS=[
+  {n:'Section A · About You',          qs:['q1','q2','q3','q4']},
+  {n:'Section B · Trust & Preferences',qs:['q5','q6','q7','q8']},
+  {n:'Section C · Clinic Challenges',  qs:['q9','q10','q11','q12']},
+  {n:'Section D · Trust Factors',      qs:['q13']},
+  {n:'Section E · Pricing',            qs:['q14','q15','q17']},
+  {n:'Section F · Feedback',           qs:[]}
+];
+
+function updateProg(){
+  var req=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q17'];
+  var done=req.filter(isAns).length;
+  var p=Math.round(done/req.length*100);
+  document.getElementById('pp').textContent=p+'%';
+  SECS.forEach(function(sec,i){
+    var seg=document.getElementById('s'+(i+1));
+    var tot=sec.qs.length||1;
+    var d=sec.qs.filter(isAns).length;
+    seg.querySelector('.fill').style.width=Math.round(d/tot*100)+'%';
+  });
+  var lbl=SECS[0].n;
+  for(var i=SECS.length-1;i>=0;i--){
+    if(SECS[i].qs.some(isAns)){lbl=SECS[Math.min(i+1,SECS.length-1)].n;break;}
+  }
+  document.getElementById('pl').textContent=lbl;
+}
+
+// ── SCALE BUTTONS (Q5, Q11) ──────────────────────────────
+function buildScale(containerId, cardName){
+  var wrap=document.getElementById(containerId);
+  if(!wrap) return;
+  for(var i=1;i<=5;i++){
+    (function(val){
+      var btn=document.createElement('button');
+      btn.type='button';
+      btn.className='sbtn';
+      btn.textContent=val;
+      btn.addEventListener('click',function(){
+        wrap.querySelectorAll('.sbtn').forEach(function(x){x.classList.remove('on');});
+        btn.classList.add('on');
+        var card=document.getElementById('c'+cardName);
+        if(card){card.classList.remove('err');card.classList.add('answered');}
+        updateProg();
+      });
+      wrap.appendChild(btn);
+    })(i);
+  }
+}
+buildScale('sq5','q5');
+buildScale('sq11','q11');
+
+// ── GRID BUTTONS (Q12) ───────────────────────────────────
+function buildGrid(containerId, rowId){
+  var wrap=document.getElementById(containerId);
+  if(!wrap) return;
+  for(var i=1;i<=5;i++){
+    (function(val){
+      var btn=document.createElement('button');
+      btn.type='button';
+      btn.className='gbtn';
+      btn.textContent=val;
+      btn.addEventListener('click',function(){
+        wrap.querySelectorAll('.gbtn').forEach(function(x){x.classList.remove('on');});
+        btn.classList.add('on');
+        var row=document.getElementById(rowId);
+        if(row) row.classList.add('done');
+        document.getElementById('cq12').classList.remove('err');
+        updateProg();
+      });
+      wrap.appendChild(btn);
+    })(i);
+  }
+}
+buildGrid('g12a','gr12a');
+buildGrid('g12b','gr12b');
+buildGrid('g12c','gr12c');
+buildGrid('g12d','gr12d');
+
+// ── SLIDER (Q16) ─────────────────────────────────────────
+var sl=document.getElementById('sl16');
+var sd=document.getElementById('sd');
+function updateSlider(){
+  var v=parseInt(sl.value);
+  sd.textContent=v>=1000?'₹1,000+':'₹'+v;
+  var p=(v/1000)*100;
+  sl.style.background='linear-gradient(90deg,var(--mint) '+p+'%,var(--ink-ghost) '+p+'%)';
+}
+sl.addEventListener('input',updateSlider);
+updateSlider();
+
+// ── CITY DROPDOWN ────────────────────────────────────────
+document.getElementById('q2-select').addEventListener('change',function(){
+  var c=document.getElementById('cq2');
+  c.classList.remove('err');
+  c.classList.add('answered');
+  if(this.value) this.classList.add('selected');
+  updateProg();
+});
+
+// ── RADIO / CHECKBOX CHANGE ──────────────────────────────
+document.getElementById('f').addEventListener('change',function(e){
+  var nm=e.target.name;
+  if(nm){
+    var card=document.getElementById('c'+nm);
+    if(card){card.classList.remove('err');card.classList.add('answered');}
+  }
+  updateProg();
+});
+
+// ── VALIDATION ───────────────────────────────────────────
+function validateForm() {
+  var radios = ['q1','q3','q4','q6','q7','q8','q9','q10','q14','q15','q17'];
+  var ok = true, first = null;
+
+  document.querySelectorAll('.card.err').forEach(function(c){
+    c.classList.remove('err');
+    void c.offsetWidth;
+  });
+
+  radios.forEach(function(n) {
+    var c = document.getElementById('c'+n);
+    if (!document.querySelector('input[name="'+n+'"]:checked')) {
+      c.classList.add('err'); if (!first) first = c; ok = false;
+    }
+  });
+
+  if (!document.getElementById('q2-select').value) {
+    var cq2 = document.getElementById('cq2');
+    cq2.classList.add('err'); if (!first) first = cq2; ok = false;
+  }
+
+  if (!document.getElementById('sq5').querySelector('.on')) {
+    var cq5 = document.getElementById('cq5');
+    cq5.classList.add('err'); if (!first) first = cq5; ok = false;
+  }
+
+  if (!document.getElementById('sq11').querySelector('.on')) {
+    var cq11 = document.getElementById('cq11');
+    cq11.classList.add('err'); if (!first) first = cq11; ok = false;
+  }
+
+  if (!gridDone()) {
+    var cq12 = document.getElementById('cq12');
+    cq12.classList.add('err'); if (!first) first = cq12; ok = false;
+  }
+
+  if (!document.querySelector('input[name="q13"]:checked')) {
+    var cq13 = document.getElementById('cq13');
+    cq13.classList.add('err'); if (!first) first = cq13; ok = false;
+  }
+
+  return { ok: ok, first: first };
+}
+
+// ── COLLECT DATA ─────────────────────────────────────────
+function collectData() {
+  var radios = ['q1','q3','q4','q6','q7','q8','q9','q10','q14','q15','q17'];
+  var data = {};
+  radios.forEach(function(n) {
+    var el = document.querySelector('input[name="'+n+'"]:checked');
+    data[n] = el ? el.value : '';
+  });
+  data.q2  = document.getElementById('q2-select').value;
+  data.q5  = (document.getElementById('sq5').querySelector('.on') || {}).textContent || '';
+  data.q11 = (document.getElementById('sq11').querySelector('.on') || {}).textContent || '';
+
+  // ── FIX: Use q12a/q12b/q12c/q12d keys (not g12a etc.) ──
+  // This ensures the Apps Script params match what we send
+  data.q12a = (document.getElementById('g12a').querySelector('.on') || {}).textContent || '';
+  data.q12b = (document.getElementById('g12b').querySelector('.on') || {}).textContent || '';
+  data.q12c = (document.getElementById('g12c').querySelector('.on') || {}).textContent || '';
+  data.q12d = (document.getElementById('g12d').querySelector('.on') || {}).textContent || '';
+
+  data.q13 = Array.from(document.querySelectorAll('input[name="q13"]:checked')).map(function(x){return x.value;}).join(', ');
+  data.q16 = sl.value;
+  data.q18 = document.querySelector('[name="q18"]').value;
+  data.q19 = document.querySelector('[name="q19"]').value;
+  data.timestamp = new Date().toISOString();
+  return data;
+}
+
+// ══════════════════════════════════════════════════════════════
+// ── SEND TO GOOGLE SHEETS — TRIPLE-REDUNDANT APPROACH ────────
+// ══════════════════════════════════════════════════════════════
+//
+// WHY THE OLD VERSION FAILED:
+// 1. fetch() with mode:'no-cors' sends the request but you can't
+//    read the response. That part is fine — but if the Apps Script
+//    doGet() wasn't parsing e.parameter correctly, data was lost.
+// 2. The Image beacon (new Image().src = url) works but can be
+//    cancelled if the page navigates or the DOM changes too fast.
+// 3. Key mismatch: the HTML sent 'g12a' but Apps Script expected
+//    'q12a' (or vice versa) — silent data loss.
+//
+// THIS VERSION FIXES ALL OF THAT:
+// • Method 1: fetch() GET with query params (most reliable)
+// • Method 2: Hidden iframe form POST (backup — survives page changes)
+// • Method 3: Image beacon (belt-and-suspenders)
+// • Data keys are now consistent between HTML and Apps Script
+// ══════════════════════════════════════════════════════════════
+
+function sendToSheet(data, callback) {
+  // Show success immediately (optimistic UI)
+  callback();
+
+  // ── METHOD 1: Form GET to hidden iframe (PRIMARY) ──
+  // This submits a GET form to an iframe — the browser navigates the iframe
+  // to the Apps Script URL with query params, exactly like opening in a tab.
+  // This is the closest match to "Test A" which confirmed working.
+  try {
+    var formGet = document.createElement('form');
+    formGet.method = 'GET';
+    formGet.action = APPS_SCRIPT_URL;
+    formGet.target = 'hidden_iframe';
+    formGet.style.display = 'none';
+
+    Object.keys(data).forEach(function(k) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = k;
+      input.value = data[k] !== undefined ? String(data[k]) : '';
+      formGet.appendChild(input);
+    });
+
+    document.body.appendChild(formGet);
+    formGet.submit();
+    setTimeout(function(){
+      try { document.body.removeChild(formGet); } catch(e) {}
+    }, 10000);
+    console.log('[VacciHome] Method 1 (form GET → iframe): sent');
+  } catch(e) {
+    console.warn('[VacciHome] Method 1 error:', e);
+  }
+
+  // ── METHOD 2: Form POST to hidden iframe (backup) ──
+  try {
+    var formPost = document.createElement('form');
+    formPost.method = 'POST';
+    formPost.action = APPS_SCRIPT_URL;
+    formPost.target = 'hidden_iframe';
+    formPost.style.display = 'none';
+
+    Object.keys(data).forEach(function(k) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = k;
+      input.value = data[k] !== undefined ? String(data[k]) : '';
+      formPost.appendChild(input);
+    });
+
+    document.body.appendChild(formPost);
+    formPost.submit();
+    setTimeout(function(){
+      try { document.body.removeChild(formPost); } catch(e) {}
+    }, 10000);
+    console.log('[VacciHome] Method 2 (form POST → iframe): sent');
+  } catch(e) {
+    console.warn('[VacciHome] Method 2 error:', e);
+  }
+
+  // ── METHOD 3: Image beacon (last resort) ──
+  try {
+    var params = Object.keys(data).map(function(k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k] !== undefined ? data[k] : '');
+    }).join('&');
+    var img = new Image();
+    img.src = APPS_SCRIPT_URL + '?' + params;
+    console.log('[VacciHome] Method 3 (Image beacon): sent');
+  } catch(e) {
+    console.warn('[VacciHome] Method 3 error:', e);
+  }
+}
+
+// ── SUBMIT ────────────────────────────────────────────────
+var submitBtn = document.querySelector('.sbmit');
+var formSubmitted = false;
+var errBannerTimer = null;
+
+function showErrBanner(count) {
+  var banner = document.getElementById('err-banner');
+  banner.textContent = '⚠ ' + count + ' required question' + (count > 1 ? 's' : '') + ' still need' + (count > 1 ? '' : 's') + ' an answer';
+  banner.style.display = 'block';
+  clearTimeout(errBannerTimer);
+  errBannerTimer = setTimeout(function(){
+    banner.style.display = 'none';
+  }, 4000);
+}
+
+submitBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  if (formSubmitted) return;
+
+  var result = validateForm();
+  if (!result.ok) {
+    var errCount = document.querySelectorAll('.card.err').length;
+    showErrBanner(errCount);
+    setTimeout(function(){
+      result.first.scrollIntoView({ behavior:'smooth', block:'center' });
+    }, 100);
+    return;
+  }
+
+  formSubmitted = true;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = 'Submitting… <span style="font-size:16px">⏳</span>';
+
+  var data = collectData();
+  console.log('[VacciHome] Survey data:', data);
+
+  sendToSheet(data, showSuccess);
+});
+
+document.getElementById('f').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (formSubmitted) return;
+  submitBtn.click();
+});
+
+function showSuccess(){
+  function hide(sel){
+    var el = typeof sel === 'string' ? document.querySelector(sel) : sel;
+    if(el) el.style.display='none';
+  }
+  hide('#f');
+  hide('.prog-sticky');
+  hide('.hero-wave');
+  hide('.bg');
+  hide('.dots');
+
+  var ss = document.getElementById('ss');
+  if(ss){
+    ss.style.display = 'block';
+    setTimeout(function(){
+      ss.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 80);
+  }
+}
+
+// ── PHONE CAPTURE ─────────────────────────────────────────
+document.getElementById('phone-btn').addEventListener('click',function(){
+  var input = document.getElementById('phone-input');
+  var errEl = document.getElementById('phone-err');
+  var raw = input.value.replace(/\D/g,'');
+  if(raw.length === 12 && raw.startsWith('91')) raw = raw.slice(2);
+  if(raw.length === 11 && raw.startsWith('0')) raw = raw.slice(1);
+
+  if(!/^[6-9][0-9]{9}$/.test(raw)){
+    errEl.classList.add('show');
+    input.focus();
+    return;
+  }
+  errEl.classList.remove('show');
+
+  var btn = document.getElementById('phone-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  var phoneData = { phone:'+91'+raw, phone_timestamp:new Date().toISOString(), type:'phone_signup' };
+  sendToSheet(phoneData, showPhoneSuccess);
+});
+
+function showPhoneSuccess(){
+  var pf = document.getElementById('phone-form');
+  var ps = document.getElementById('phone-success');
+  if(pf) pf.style.display='none';
+  if(ps) ps.style.display='block';
+}
+
+document.getElementById('phone-input').addEventListener('input',function(){
+  this.value = this.value.replace(/\D/g,'').slice(0,10);
+  if(this.value.length > 0) document.getElementById('phone-err').classList.remove('show');
+});
+</script>
+</body>
+</html>
